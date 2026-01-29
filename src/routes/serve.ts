@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { deleteArtifact, readArtifact, readMetadata } from "../storage.js";
 import { wrapHtmlWithBanner, wrapMarkdownWithBanner } from "../banner.js";
+import { log } from "../logger.js";
 
 const ULID_RE = /^[0-9A-Z]{26}$/i;
 
@@ -22,8 +23,11 @@ serveRoute.get("/:id", async (c) => {
   // Lazy TTL enforcement
   if (new Date(meta.expires_at).getTime() <= Date.now()) {
     await deleteArtifact(id);
+    log.info({ artifact_id: id }, "serve: expired artifact deleted (lazy)");
     return c.json({ error: "Not found" }, 404);
   }
+
+  log.info({ artifact_id: id, content_type: meta.content_type }, "serve: artifact requested");
 
   const content = await readArtifact(id);
   if (!content) {

@@ -1,5 +1,6 @@
 import type { MiddlewareHandler } from "hono";
 import { CONFIG } from "../config.js";
+import { log } from "../logger.js";
 
 interface WindowEntry {
   count: number;
@@ -29,6 +30,7 @@ export function rateLimiter(): MiddlewareHandler {
         (CONFIG.RATE_LIMIT_WINDOW_MS - (now - entry.windowStart)) / 1000,
       );
       c.header("Retry-After", String(retryAfter));
+      log.warn({ ip, count: entry.count }, "rate-limit: request rejected");
       return c.json({ error: "Too many requests" }, 429);
     }
 

@@ -28,4 +28,7 @@ export const CONFIG = {
   RATE_LIMIT_MAX_REQUESTS: 30, // 30 req/min per IP
 
   CLEANUP_INTERVAL_MS: 60_000, // sweep every 60s
+
+  DISK_USAGE_THRESHOLD: 0.9, // reject publishes above 90% disk usage
+  SHUTDOWN_DRAIN_MS: 10_000, // wait up to 10s for in-flight requests
 } as const;

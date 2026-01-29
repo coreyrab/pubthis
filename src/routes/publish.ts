@@ -1,6 +1,8 @@
 import { Hono } from "hono";
 import { ulid } from "ulid";
 import { CONFIG } from "../config.js";
+import { isDiskFull } from "../health.js";
+import { log } from "../logger.js";
 import { writeArtifact } from "../storage.js";
 import type { ArtifactMeta, PublishRequest, PublishResponse } from "../types.js";
 
@@ -11,7 +13,14 @@ publishRoute.post("/publish", async (c) => {
   try {
     body = await c.req.json<PublishRequest>();
   } catch {
+    log.warn("publish: invalid JSON body");
     return c.json({ error: "Invalid JSON body" }, 400);
+  }
+
+  // Reject if disk is nearly full
+  if (await isDiskFull()) {
+    log.error("publish: rejected — disk usage above threshold");
+    return c.json({ error: "Service temporarily unavailable — storage full" }, 503);
   }
 
   // Validate content
@@ -64,6 +73,11 @@ publishRoute.post("/publish", async (c) => {
   };
 
   await writeArtifact(artifactId, contentBuffer, meta);
+
+  log.info(
+    { artifact_id: artifactId, content_type: contentType, size_bytes: contentBuffer.length, ttl_seconds: ttl },
+    "publish: artifact created",
+  );
 
   const response: PublishResponse = {
     artifact_id: artifactId,
