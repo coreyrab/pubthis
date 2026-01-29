@@ -25,7 +25,7 @@ export function wrapHtmlWithBanner(html: string): string {
 }
 
 const MARKDOWN_STYLES = `
-  :root { --creme: #FFFDF7; --fg: #1a1a1a; --muted: #6b6b6b; --tomato: #E54D2E; --border: #e5e3de; --code-bg: #0A0A0A; --inline-code-bg: #f0eee9; }
+  :root { --creme: #FFFEFC; --fg: #1a1a1a; --muted: #6b6b6b; --tomato: #E54D2E; --border: #e8e8e6; --code-bg: #0A0A0A; --inline-code-bg: #f4f4f2; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
