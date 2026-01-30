@@ -1,9 +1,17 @@
 import { Hono } from "hono";
 import { deleteArtifact, readArtifact, readMetadata } from "../storage.js";
-import { wrapHtmlWithBanner, wrapMarkdownWithBanner } from "../banner.js";
+import {
+  wrapHtmlWithBanner,
+  wrapMarkdownWithBanner,
+  wrapHtmlWithLocalBanner,
+  wrapMarkdownWithLocalBanner,
+} from "../banner.js";
 import type { OgTags } from "../banner.js";
 import { CONFIG } from "../config.js";
 import { log } from "../logger.js";
+
+/** Local mode: show Share button instead of static banner */
+const isLocalMode = CONFIG.BASE_URL.includes("localhost") || CONFIG.BASE_URL.includes("127.0.0.1");
 
 const ULID_RE = /^[0-9A-Z]{26}$/i;
 
@@ -36,27 +44,43 @@ serveRoute.get("/:id", async (c) => {
     return c.json({ error: "Not found" }, 404);
   }
 
-  // Build OG tags from stored metadata
-  const og: OgTags = {
-    og_title: meta.og_title,
-    og_description: meta.og_description,
-    og_url: `${CONFIG.BASE_URL}/a/${id}`,
-  };
+  const textContent = content.toString("utf-8");
 
-  // Inject branding banner and OG meta for renderable content types
+  // Inject branding banner for renderable content types
+  // Local mode: Share button + JS | Hosted mode: static banner + OG tags
   if (meta.content_type === "text/html") {
-    const html = wrapHtmlWithBanner(content.toString("utf-8"), og);
+    const html = isLocalMode
+      ? wrapHtmlWithLocalBanner(textContent, {
+          contentType: meta.content_type,
+          publishUrl: `${CONFIG.REMOTE_URL}/v1/publish`,
+          rawContent: textContent,
+        })
+      : wrapHtmlWithBanner(textContent, {
+          og_title: meta.og_title,
+          og_description: meta.og_description,
+          og_url: `${CONFIG.BASE_URL}/a/${id}`,
+        });
     return c.html(html, 200, {
       "X-Content-Type-Options": "nosniff",
-      "Cache-Control": "public, max-age=3600",
+      "Cache-Control": isLocalMode ? "no-cache" : "public, max-age=3600",
     });
   }
 
   if (meta.content_type === "text/markdown") {
-    const html = wrapMarkdownWithBanner(content.toString("utf-8"), og);
+    const html = isLocalMode
+      ? wrapMarkdownWithLocalBanner(textContent, {
+          contentType: meta.content_type,
+          publishUrl: `${CONFIG.REMOTE_URL}/v1/publish`,
+          rawContent: textContent,
+        })
+      : wrapMarkdownWithBanner(textContent, {
+          og_title: meta.og_title,
+          og_description: meta.og_description,
+          og_url: `${CONFIG.BASE_URL}/a/${id}`,
+        });
     return c.html(html, 200, {
       "X-Content-Type-Options": "nosniff",
-      "Cache-Control": "public, max-age=3600",
+      "Cache-Control": isLocalMode ? "no-cache" : "public, max-age=3600",
     });
   }
 

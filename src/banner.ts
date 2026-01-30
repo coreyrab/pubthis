@@ -41,6 +41,32 @@ const BANNER_STYLES = `
 
 const BANNER_HTML = `<div style="${BANNER_STYLES}">published with <a href="https://pubthis.co" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;text-underline-offset:2px;">/pub</a></div>`;
 
+const SHARE_BTN_STYLES = `
+  background:none;border:1px solid rgba(255,255,255,0.3);color:#fff;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  padding:2px 10px;border-radius:4px;cursor:pointer;letter-spacing:0.02em;
+  transition:border-color 0.15s;
+`.replace(/\n/g, "");
+
+export interface LocalBannerOpts {
+  contentType: string;
+  publishUrl: string;
+  rawContent: string;
+}
+
+function buildLocalBannerHtml(opts: LocalBannerOpts): string {
+  // Embed the raw content as base64 in a data attribute to avoid escaping issues
+  const encodedContent = Buffer.from(opts.rawContent, "utf-8").toString("base64");
+
+  const script = `<script>(function(){var btn=document.getElementById('pub-share-btn');var state='ready';btn.addEventListener('click',function(){if(state==='ready'){state='sharing';btn.textContent='Sharing...';btn.style.opacity='0.6';btn.style.cursor='wait';var raw=atob(document.getElementById('pub-raw-content').dataset.content);fetch('${opts.publishUrl}',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:raw,content_type:'${opts.contentType}'})}).then(function(r){return r.json()}).then(function(data){state='shared';btn.dataset.url=data.url;btn.textContent='\\u{1F4CB} Copy link';btn.style.opacity='1';btn.style.cursor='pointer';btn.style.borderColor='rgba(255,255,255,0.5)';navigator.clipboard.writeText(data.url)}).catch(function(){state='ready';btn.textContent='Share \\u2197';btn.style.opacity='1';btn.style.cursor='pointer'})}else if(state==='shared'){navigator.clipboard.writeText(btn.dataset.url).then(function(){var p=btn.textContent;btn.textContent='Copied!';setTimeout(function(){btn.textContent=p},1500)})}});btn.addEventListener('mouseenter',function(){if(state!=='sharing')btn.style.borderColor='rgba(255,255,255,0.6)'});btn.addEventListener('mouseleave',function(){if(state!=='sharing')btn.style.borderColor=state==='shared'?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.3)'})})()</script>`;
+
+  const hiddenData = `<div id="pub-raw-content" data-content="${encodedContent}" style="display:none"></div>`;
+
+  const LOCAL_BANNER_STYLES = BANNER_STYLES.replace("justify-content:center", "justify-content:space-between;padding:0 12px");
+
+  return `<div style="${LOCAL_BANNER_STYLES}"><button id="pub-share-btn" style="${SHARE_BTN_STYLES}">Share &#8599;</button><span>published with <a href="https://pubthis.co" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;text-underline-offset:2px;">/pub</a></span></div>${hiddenData}${script}`;
+}
+
 const BODY_PADDING = `<style>body{padding-bottom:40px}</style>`;
 
 /**
@@ -133,4 +159,30 @@ export function wrapMarkdownWithBanner(markdown: string, og?: OgTags): string {
 
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${ogTags}<style>${MARKDOWN_STYLES}</style></head><body>${rendered}${BANNER_HTML}</body></html>`;
+}
+
+// ---------------------------------------------------------------------------
+// Local preview mode — includes Share button with inline JS
+// ---------------------------------------------------------------------------
+
+/**
+ * Inject the local-mode banner (with Share button) into an existing HTML document.
+ */
+export function wrapHtmlWithLocalBanner(html: string, opts: LocalBannerOpts): string {
+  const payload = BODY_PADDING + buildLocalBannerHtml(opts);
+  const idx = html.toLowerCase().indexOf("</body>");
+  if (idx !== -1) {
+    return html.slice(0, idx) + payload + html.slice(idx);
+  }
+  return html + payload;
+}
+
+/**
+ * Render markdown to a fully styled HTML page with the local-mode Share banner.
+ */
+export function wrapMarkdownWithLocalBanner(markdown: string, opts: LocalBannerOpts): string {
+  const rendered = marked.parse(markdown, { async: false }) as string;
+
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${MARKDOWN_STYLES}</style></head><body>${rendered}${buildLocalBannerHtml(opts)}${BODY_PADDING}</body></html>`;
 }
