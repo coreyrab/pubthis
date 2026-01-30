@@ -10,17 +10,14 @@ export function Hero() {
         v0.1.0 — early preview
       </Badge>
       <h1 className="font-mono text-4xl font-bold tracking-tight sm:text-5xl">
-        publish anything.
+        publish directly
         <br />
-        get a link<span className="text-tomato">.</span>
+        from Claude Code<span className="text-tomato">.</span>
       </h1>
       <p className="mt-4 max-w-lg font-mono text-base text-muted-foreground leading-relaxed">
-        pub is a publishing primitive for AI agents. Ask your coding agent to
-        share something — a report, a preview, an image — and get back a
-        temporary, shareable URL.
-      </p>
-      <p className="mt-2 font-mono text-sm text-muted-foreground/70">
-        ngrok for AI artifacts.
+        Publish chats, markdown files, prototypes, and documents straight from
+        Claude Code. Get a temporary, shareable link — perfect for quick sharing
+        with your team.
       </p>
     </section>
   );

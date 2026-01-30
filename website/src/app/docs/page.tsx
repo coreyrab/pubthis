@@ -75,15 +75,11 @@ export default function DocsQuickstart() {
               <span className="text-green-400">curl</span>
               <span className="text-white">
                 {
-                  " -o CLAUDE.md https://raw.githubusercontent.com/coreyrab/pub/main/CLAUDE.md"
+                  " -o CLAUDE.md https://raw.githubusercontent.com/coreyrab/pubthis/main/CLAUDE.md"
                 }
               </span>
             </code>
           </pre>
-          <p className="font-mono text-xs text-muted-foreground">
-            This file teaches Claude Code how and when to use pub. It includes
-            the API contract, content types, and publishing guidelines.
-          </p>
         </div>
 
         <div className="space-y-2">

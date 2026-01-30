@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "pub — publish anything. get a link.",
+  title: "/pub — publish Claude Code chats",
   description:
-    "Simple publishing from Claude Code. Share any artifact as a temporary, shareable URL.",
+    "Publish chats, markdown files, prototypes, and documents directly from Claude Code. Get a temporary, shareable link for easy sharing.",
 };
 
 export default function RootLayout({

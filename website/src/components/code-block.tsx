@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 const EXAMPLE_URL = "https://pubthis.co/a/01KG7T2B374YN0CGA588R5GRM8";
 
 export function CodeBlock() {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,6 +13,13 @@ export function CodeBlock() {
 
   return (
     <section className="mx-auto max-w-4xl px-6 pb-20">
+      <style>{`
+        .chat-scroll::-webkit-scrollbar { width: 6px; }
+        .chat-scroll::-webkit-scrollbar-track { background: transparent; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+        .chat-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+        .chat-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) transparent; }
+      `}</style>
       <div className="overflow-hidden rounded-lg border border-border bg-[#0A0A0A]">
         {/* Title bar */}
         <div className="flex items-center border-b border-white/10 px-4 py-3">
@@ -28,10 +34,7 @@ export function CodeBlock() {
         </div>
 
         {/* Scrollable chat */}
-        <div
-          ref={scrollRef}
-          className="h-[420px] overflow-y-auto p-6 font-mono text-sm leading-relaxed"
-        >
+        <div className="chat-scroll h-[420px] overflow-y-auto p-6 font-mono text-sm leading-relaxed">
           {/* User prompt 1 */}
           <div className="mb-6">
             <span className="text-white/40">&gt; </span>
@@ -60,7 +63,7 @@ export function CodeBlock() {
             </p>
 
             <p className="text-white/50 text-xs mt-2 mb-1">How it works:</p>
-            <pre className="text-white/60 text-xs leading-snug overflow-x-auto">{`  ┌─────────────┐    POST /v1/publish    ┌─────────────┐
+            <pre className="text-white/50 text-xs leading-snug overflow-x-auto">{`  ┌─────────────┐    POST /v1/publish    ┌─────────────┐
   │ Claude Code  │ ────────────────────▸ │   pub API    │
   │ (or any      │                       │  pubthis.co  │
   │  agent)      │ ◂──────────────────── │              │
@@ -101,23 +104,23 @@ export function CodeBlock() {
             </p>
             <div className="space-y-0.5 text-xs">
               <p>
-                <span className="text-green-400">text/markdown</span>
+                <span className="text-white/60">text/markdown</span>
                 <span className="text-white/40">
                   {" "}— reports, docs, specs
                 </span>
               </p>
               <p>
-                <span className="text-green-400">text/html</span>
+                <span className="text-white/60">text/html</span>
                 <span className="text-white/40">
                   {" "}— previews, prototypes
                 </span>
               </p>
               <p>
-                <span className="text-green-400">text/plain</span>
+                <span className="text-white/60">text/plain</span>
                 <span className="text-white/40"> — logs, raw output</span>
               </p>
               <p>
-                <span className="text-green-400">image/*</span>
+                <span className="text-white/60">image/*</span>
                 <span className="text-white/40">
                   {" "}— screenshots, diagrams
                 </span>
