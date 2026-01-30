@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 
-const steps = [
+const installSteps = [
   { number: 1, command: "claude plugin marketplace add coreyrab/pubthis" },
   { number: 2, command: "claude plugin install pubthis" },
-  { number: 3, command: "/pub" },
+];
+
+const useSteps = [
+  { number: 1, command: "/pub" },
 ];
 
 function CopyButton({ text }: { text: string }) {
@@ -29,21 +32,38 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
+function StepBlock({ steps }: { steps: { number: number; command: string }[] }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-[#0d0d0d] overflow-hidden divide-y divide-white/10">
+      {steps.map((step) => (
+        <div key={step.number} className="flex items-center gap-4 px-5 py-4">
+          <span className="shrink-0 font-mono text-sm text-white/30">
+            {step.number}.
+          </span>
+          <code className="flex-1 font-mono text-sm text-white/80">
+            {step.command}
+          </code>
+          <CopyButton text={step.command} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function InstallSteps() {
   return (
-    <div className="mx-auto max-w-4xl px-6 pb-10">
-      <div className="rounded-xl border border-white/10 bg-[#0d0d0d] overflow-hidden divide-y divide-white/10">
-        {steps.map((step) => (
-          <div key={step.number} className="flex items-center gap-4 px-5 py-4">
-            <span className="shrink-0 font-mono text-sm text-white/30">
-              {step.number}.
-            </span>
-            <code className="flex-1 font-mono text-sm text-white/80">
-              {step.command}
-            </code>
-            <CopyButton text={step.command} />
-          </div>
-        ))}
+    <div className="mx-auto max-w-4xl px-6 pb-10 space-y-8">
+      <div>
+        <h2 className="font-mono text-sm text-white/40 uppercase tracking-wider mb-3">
+          How to install
+        </h2>
+        <StepBlock steps={installSteps} />
+      </div>
+      <div>
+        <h2 className="font-mono text-sm text-white/40 uppercase tracking-wider mb-3">
+          How to use
+        </h2>
+        <StepBlock steps={useSteps} />
       </div>
     </div>
   );
