@@ -5,10 +5,13 @@ import { useEffect, useRef } from "react";
 const EXAMPLE_URL = "https://pubthis.co/a/01KG7T2B374YN0CGA588R5GRM8";
 
 export function CodeBlock() {
+  const chatRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "instant" });
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
   }, []);
 
   return (
@@ -34,7 +37,7 @@ export function CodeBlock() {
         </div>
 
         {/* Scrollable chat */}
-        <div className="chat-scroll h-[420px] overflow-y-auto p-6 font-mono text-sm leading-relaxed">
+        <div ref={chatRef} className="chat-scroll h-[420px] overflow-y-auto p-6 font-mono text-sm leading-relaxed">
           {/* User prompt 1 */}
           <div className="mb-6">
             <span className="text-white/40">&gt; </span>
