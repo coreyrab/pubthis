@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "pub — publish anything. get a link.",
   description:
-    "A minimal publishing primitive. Take any artifact and expose it as a temporary, shareable URL.",
+    "Simple publishing from Claude Code. Share any artifact as a temporary, shareable URL.",
 };
 
 export default function RootLayout({
