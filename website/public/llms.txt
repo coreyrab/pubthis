@@ -39,6 +39,29 @@ Response:
 - application/pdf — documents
 - image/png, image/jpeg, image/webp — screenshots, diagrams
 
+## FAQ
+
+Q: What is pubthis?
+A: pubthis is a publishing tool for Claude Code. It takes local content — markdown, HTML, PDFs, images, plain text — and publishes it to a temporary, shareable URL. Think of it as ngrok for AI artifacts.
+
+Q: How long do links last?
+A: All published artifacts expire after 7 days by default. You can set a shorter TTL, but the maximum is 7 days. There is no permanent hosting.
+
+Q: Is published content public?
+A: Yes. All artifacts are world-readable. Anyone with the link can view the content. Never publish secrets, API keys, or credentials.
+
+Q: Can I update a published artifact?
+A: No. Artifacts are immutable. To update content, publish a new artifact and share the new link.
+
+Q: What content types are supported?
+A: Markdown, HTML, plain text, PDF, PNG, JPEG, and WebP. Markdown is rendered with styling, HTML is served in a sandbox, and everything else is served as-is.
+
+Q: Do I need an API key?
+A: No. pubthis has no authentication. Install the Claude Code plugin and start publishing.
+
+Q: Can I self-host pubthis?
+A: Yes. Clone the repo, configure storage, and run the server. See the docs for details.
+
 ## Source
 
 - GitHub: https://github.com/coreyrab/pubthis
