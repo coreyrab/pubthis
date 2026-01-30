@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const EXAMPLE_URL = "https://pubthis.co/a/01KG7T2B374YN0CGA588R5GRM8";
+const EXAMPLE_URL = "https://pubthis.co/a/01KG8967ZW2756FSB6FKY0XTBJ";
 
 export function CodeBlock() {
   const chatRef = useRef<HTMLDivElement>(null);
@@ -42,16 +42,17 @@ export function CodeBlock() {
           <div className="mb-6">
             <span className="text-white/40">&gt; </span>
             <span className="text-white">
-              Write a quick project status update for the team. Cover what we shipped this week, what&apos;s in progress, and blockers.
+              Write a project status update for the team. Include what we shipped, what&apos;s in progress, blockers, an architecture diagram, and deploy velocity for the month.
             </span>
           </div>
 
-          {/* Claude response 1 — a real work output */}
+          {/* Claude response 1 */}
           <div className="mb-6 space-y-4 text-white/70">
             <p className="text-white/90 font-semibold">
               # Weekly Status — Jan 27–31
             </p>
 
+            {/* Shipped */}
             <div>
               <p className="text-white/80 font-semibold">Shipped</p>
               <div className="space-y-0.5 mt-1">
@@ -72,6 +73,7 @@ export function CodeBlock() {
               </div>
             </div>
 
+            {/* In Progress */}
             <div>
               <p className="text-white/80 font-semibold">In Progress</p>
               <div className="space-y-0.5 mt-1">
@@ -88,6 +90,7 @@ export function CodeBlock() {
               </div>
             </div>
 
+            {/* Blockers */}
             <div>
               <p className="text-white/80 font-semibold">Blockers</p>
               <div className="space-y-0.5 mt-1">
@@ -95,6 +98,64 @@ export function CodeBlock() {
                   <span className="text-white/50">•</span> Waiting on
                   design sign-off for the settings page rework. Pinged Sarah —
                   should have mocks by Monday.
+                </p>
+              </div>
+            </div>
+
+            {/* Architecture diagram */}
+            <div>
+              <p className="text-white/80 font-semibold">Architecture</p>
+              <pre className="text-white/50 text-xs leading-snug mt-2 overflow-x-auto">{`┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   Next.js    │────▸│   API        │────▸│   Postgres   │
+│   Frontend   │     │   (Hono)     │     │              │
+└──────┬───────┘     └──────┬───────┘     └──────────────┘
+       │                    │
+       │              ┌─────▾──────┐
+       │              │   Redis    │
+       │              │   Cache    │
+       │              └─────┬──────┘
+       │                    │
+       ▼                    ▼
+┌──────────────┐     ┌──────────────┐
+│   Vercel     │     │   Railway    │
+│   (CDN)      │     │   (Compute)  │
+└──────────────┘     └──────────────┘`}</pre>
+            </div>
+
+            {/* Deploy velocity chart */}
+            <div>
+              <p className="text-white/80 font-semibold">Deploy Velocity</p>
+              <pre className="text-white/50 text-xs leading-snug mt-2 overflow-x-auto">{`Week        Deploys    Rollbacks
+─────────── ────────── ──────────
+Jan 6–10        8          1
+Jan 13–17      12          0
+Jan 20–24      15          2
+Jan 27–31      19          0  ◀ this week
+
+Deploys per week:
+
+Jan 6  │████████░░░░░░░░░░░░│  8
+Jan 13 │████████████░░░░░░░░│ 12
+Jan 20 │███████████████░░░░░│ 15
+Jan 27 │███████████████████░│ 19  ★
+        0    5    10   15   20`}</pre>
+            </div>
+
+            {/* Next week */}
+            <div>
+              <p className="text-white/80 font-semibold">Next Week</p>
+              <div className="space-y-0.5 mt-1">
+                <p>
+                  <span className="text-white/50">1.</span> Ship rate limiting v2
+                </p>
+                <p>
+                  <span className="text-white/50">2.</span> Complete billing migration QA
+                </p>
+                <p>
+                  <span className="text-white/50">3.</span> Begin settings page implementation (pending design)
+                </p>
+                <p>
+                  <span className="text-white/50">4.</span> Plan Q1 retrospective
                 </p>
               </div>
             </div>
