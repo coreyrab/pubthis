@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const EXAMPLE_URL = "https://pubthis.co/a/01KG8967ZW2756FSB6FKY0XTBJ";
+const EXAMPLE_URL = "https://pubthis.co/a/01KG8A22R05WAR5W5KJS6GMKST";
 
 export function CodeBlock() {
   const chatRef = useRef<HTMLDivElement>(null);
@@ -45,122 +45,104 @@ export function CodeBlock() {
           <div className="mb-6">
             <span className="text-white/40">&gt; </span>
             <span className="text-white">
-              Write a project status update for the team. Include what we shipped, what&apos;s in progress, blockers, an architecture diagram, and deploy velocity for the month.
+              What is /pub and how does it work? Include a diagram and some example use cases.
             </span>
           </div>
 
           {/* Claude response 1 */}
           <div className="mb-6 space-y-4 text-white/70">
-            <p className="text-white/90 font-semibold">
-              # Weekly Status — Jan 27–31
+            <p>
+              <span className="text-white/90 font-semibold">/pub</span> is a
+              publishing tool for Claude Code. You produce something worth
+              sharing — a report, an analysis, a prototype — and say{" "}
+              <span className="text-white/90">&quot;share this as a link.&quot;</span>{" "}
+              I publish it and hand you a temporary URL.
+            </p>
+            <p>
+              No deploy. No hosting. No config. Just content → link.
             </p>
 
-            {/* Shipped */}
-            <div>
-              <p className="text-white/80 font-semibold">Shipped</p>
-              <div className="space-y-0.5 mt-1">
-                <p>
-                  <span className="text-white/50">•</span> User auth flow
-                  redesign — login, signup, and password reset all use the new
-                  layout. 40% faster load time on mobile.
-                </p>
-                <p>
-                  <span className="text-white/50">•</span> Webhook retry logic
-                  — failed deliveries now retry 3x with exponential backoff.
-                  Cut dropped events from ~12% to &lt;0.5%.
-                </p>
-                <p>
-                  <span className="text-white/50">•</span> Dashboard CSV export
-                  — users can export filtered data from any dashboard view.
-                </p>
-              </div>
+            {/* How it works diagram */}
+            <p className="text-white/80 font-semibold">How it works</p>
+            <pre className="text-white/50 text-xs leading-snug overflow-x-auto">{`┌─────────────────┐                    ┌─────────────────┐
+│                  │   POST /v1/publish │                  │
+│   Claude Code    │──────────────────▸│    pub API       │
+│                  │                    │   pubthis.co     │
+│   You say:       │◂──────────────────│                  │
+│   "/pub"         │  { url, expires }  │   Stores content │
+│                  │                    │   Returns URL    │
+└─────────────────┘                    └────────┬─────────┘
+                                                │
+                                          GET /a/:id
+                                                │
+                                       ┌────────▾─────────┐
+                                       │   Anyone with     │
+                                       │   the link        │
+                                       └───────────────────┘`}</pre>
+
+            {/* What you can publish */}
+            <p className="text-white/80 font-semibold">What you can publish</p>
+            <pre className="text-white/50 text-xs leading-snug overflow-x-auto">{`Format          Use case
+──────────────  ─────────────────────────────────────
+Markdown        Reports, specs, meeting notes
+HTML            Prototypes, previews, interactive demos
+Plain text      Logs, raw output, config files
+PDF             Documents, invoices, slide decks
+Images          Screenshots, diagrams, charts`}</pre>
+
+            {/* Use cases */}
+            <p className="text-white/80 font-semibold">Example use cases</p>
+            <div className="space-y-1">
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/60 italic">&quot;Write a weekly status update and share it as a link&quot;</span>
+              </p>
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/60 italic">&quot;Summarize the PR changes and publish it for the team&quot;</span>
+              </p>
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/60 italic">&quot;Build a landing page mockup and give me a preview link&quot;</span>
+              </p>
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/60 italic">&quot;Analyze our error rates this week and share the report&quot;</span>
+              </p>
             </div>
 
-            {/* In Progress */}
-            <div>
-              <p className="text-white/80 font-semibold">In Progress</p>
-              <div className="space-y-0.5 mt-1">
-                <p>
-                  <span className="text-white/50">•</span> API rate limiting
-                  (v2) — new sliding window implementation. On track for
-                  Wednesday.
-                </p>
-                <p>
-                  <span className="text-white/50">•</span> Billing migration
-                  — Stripe integration tests passing, need QA on edge cases
-                  (prorations, plan downgrades).
-                </p>
-              </div>
-            </div>
+            {/* Adoption chart */}
+            <p className="text-white/80 font-semibold">Published artifacts by type</p>
+            <pre className="text-white/50 text-xs leading-snug overflow-x-auto">{`Markdown  │████████████████████████████████████░░░░│ 72%
+HTML      │█████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│ 18%
+Plain     │███░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│  6%
+Images    │██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│  3%
+PDF       │█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│  1%
+           0%       25%       50%       75%     100%`}</pre>
 
-            {/* Blockers */}
-            <div>
-              <p className="text-white/80 font-semibold">Blockers</p>
-              <div className="space-y-0.5 mt-1">
-                <p>
-                  <span className="text-white/50">•</span> Waiting on
-                  design sign-off for the settings page rework. Pinged Sarah —
-                  should have mocks by Monday.
-                </p>
-              </div>
-            </div>
-
-            {/* Architecture diagram */}
-            <div>
-              <p className="text-white/80 font-semibold">Architecture</p>
-              <pre className="text-white/50 text-xs leading-snug mt-2 overflow-x-auto">{`┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   Next.js    │────▸│   API        │────▸│   Postgres   │
-│   Frontend   │     │   (Hono)     │     │              │
-└──────┬───────┘     └──────┬───────┘     └──────────────┘
-       │                    │
-       │              ┌─────▾──────┐
-       │              │   Redis    │
-       │              │   Cache    │
-       │              └─────┬──────┘
-       │                    │
-       ▼                    ▼
-┌──────────────┐     ┌──────────────┐
-│   Vercel     │     │   Railway    │
-│   (CDN)      │     │   (Compute)  │
-└──────────────┘     └──────────────┘`}</pre>
-            </div>
-
-            {/* Deploy velocity chart */}
-            <div>
-              <p className="text-white/80 font-semibold">Deploy Velocity</p>
-              <pre className="text-white/50 text-xs leading-snug mt-2 overflow-x-auto">{`Week        Deploys    Rollbacks
-─────────── ────────── ──────────
-Jan 6–10        8          1
-Jan 13–17      12          0
-Jan 20–24      15          2
-Jan 27–31      19          0  ◀ this week
-
-Deploys per week:
-
-Jan 6  │████████░░░░░░░░░░░░│  8
-Jan 13 │████████████░░░░░░░░│ 12
-Jan 20 │███████████████░░░░░│ 15
-Jan 27 │███████████████████░│ 19  ★
-        0    5    10   15   20`}</pre>
-            </div>
-
-            {/* Next week */}
-            <div>
-              <p className="text-white/80 font-semibold">Next Week</p>
-              <div className="space-y-0.5 mt-1">
-                <p>
-                  <span className="text-white/50">1.</span> Ship rate limiting v2
-                </p>
-                <p>
-                  <span className="text-white/50">2.</span> Complete billing migration QA
-                </p>
-                <p>
-                  <span className="text-white/50">3.</span> Begin settings page implementation (pending design)
-                </p>
-                <p>
-                  <span className="text-white/50">4.</span> Plan Q1 retrospective
-                </p>
-              </div>
+            {/* Key properties */}
+            <p className="text-white/80 font-semibold">Key properties</p>
+            <div className="space-y-0.5">
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/80">Temporary</span> — links expire after 7 days
+              </p>
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/80">Public</span> — anyone with the link can view
+              </p>
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/80">Immutable</span> — can&apos;t edit, just publish a new one
+              </p>
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/80">No auth</span> — no accounts, no API keys
+              </p>
+              <p>
+                <span className="text-white/50">•</span>{" "}
+                <span className="text-white/80">Any format</span> — markdown, HTML, text, PDF, images
+              </p>
             </div>
           </div>
 
@@ -175,7 +157,7 @@ Jan 27 │███████████████████░│ 19  �
           {/* Claude response 2 — the publish result */}
           <div className="space-y-2 text-white/70">
             <p>
-              Published your status update. Here&apos;s the link:
+              Published your overview. Here&apos;s the link:
             </p>
             <p>
               <a
