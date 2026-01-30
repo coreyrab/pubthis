@@ -1,0 +1,10 @@
+{
+  "name": "pubthis",
+  "version": "0.1.0",
+  "description": "Publish artifacts from Claude Code to pubthis.co — get temporary shareable URLs for chats, markdown, HTML, and more.",
+  "author": {
+    "name": "Corey Rabazinski"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

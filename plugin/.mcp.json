@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "pubthis": {
+      "command": "npx",
+      "args": ["-y", "@pubthis/mcp-server"]
+    }
+  }
+}
