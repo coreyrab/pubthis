@@ -7,7 +7,7 @@ description: >-
   HTML, prototypes, documents, or images.
 ---
 
-# /pub — Publish to a shareable URL
+# `/pub` — Publish to a shareable URL
 
 When the user invokes `/pub` or asks to share/publish content, follow these steps:
 

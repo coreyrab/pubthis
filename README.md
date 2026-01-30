@@ -1,8 +1,8 @@
-# /pub
+# pubthis
 
 Publish content from Claude Code and get a temporary, shareable URL.
 
-`/pub` takes markdown, HTML, documents, and images — and gives you a link that expires in 7 days. No accounts, no auth, no config. Just content in, URL out.
+pubthis takes markdown, HTML, documents, and images — and gives you a link that expires in 7 days. No accounts, no auth, no config. Just content in, URL out.
 
 ```
 You: "share this report as a link"
@@ -20,7 +20,7 @@ Claude: I've published your report.
 claude plugin install pubthis
 ```
 
-This gives you the `/pub` slash command and the `publish` MCP tool in one step.
+This gives you the `publish` MCP tool and a `/pub` slash command.
 
 ### MCP server only
 
@@ -52,9 +52,8 @@ Once installed, just ask naturally:
 - "Share this as a link"
 - "Publish this report"
 - "Give me a URL for this analysis"
-- `/pub` (slash command)
 
-Claude figures out the content type, formats it, publishes it, and hands you the link.
+You can also use the `/pub` slash command directly. Claude figures out the content type, formats it, publishes it, and hands you the link.
 
 ## Supported content types
 
@@ -124,7 +123,7 @@ Returns the rendered artifact. Markdown and HTML get wrapped with OG tags for li
 │  Claude Code                                │
 │                                             │
 │  Plugin (@pubthis/plugin)                   │
-│    ├── /pub skill (slash command)           │
+│    ├── `/pub` skill (slash command)         │
 │    └── MCP server (@pubthis/mcp-server)     │
 │         └── publish tool                    │
 └─────────────┬───────────────────────────────┘
@@ -152,7 +151,7 @@ The MCP server is a thin bridge — it translates Claude's tool calls into HTTP 
 
 ## Self-hosting
 
-pub is a single Node.js process with zero external dependencies. No database, no Redis, no S3 — just the filesystem.
+pubthis is a single Node.js process with zero external dependencies. No database, no Redis, no S3 — just the filesystem.
 
 ### Quick start
 
@@ -231,7 +230,7 @@ Or set it in `.mcp.json`:
 │   ├── .mcp.json         # MCP server config
 │   └── skills/
 │       └── pub/
-│           └── SKILL.md  # /pub slash command
+│           └── SKILL.md  # `/pub` slash command
 │
 ├── website/              # Marketing site (Next.js)
 │   └── src/app/          # Pages: home, docs, API reference

@@ -1,147 +1,84 @@
-# CLAUDE.md — pub (pubthis.co)
+# CLAUDE.md — pubthis
 
-You are Claude Code operating in a project that uses **pub**, a minimal publishing primitive.
+You are Claude Code working in a project that uses **pubthis** — a tool that publishes content and returns a temporary, shareable URL.
 
-Your job is to use pub correctly, predictably, and without inventing new behaviors.
+Use it correctly. Don't invent behaviors it doesn't have.
 
 ---
 
 ## Setup
 
-The recommended way to use pub is via the **Claude Code plugin**, which gives you the `/pub` slash command and a structured `publish` MCP tool:
+Install the Claude Code plugin:
 
 ```bash
 claude plugin marketplace add coreyrab/pubthis
 claude plugin install pubthis
 ```
 
-If the plugin is installed, use the `publish` MCP tool directly. If not, fall back to the HTTP API documented below.
+This gives you the `publish` MCP tool (and a `/pub` slash command). If the plugin is installed, use the `publish` tool directly. Otherwise, use the HTTP API below.
 
 ---
 
-## Core Primitive
+## What pubthis does
 
-**pub** publishes an artifact and returns a **temporary, shareable URL**.
+Takes local content (in memory, in a file, or generated output) and publishes it to a temporary public URL. That's it.
 
-Mental model:
-> pub is "ngrok for AI artifacts."
+Think of it as **ngrok for AI artifacts**.
 
-You take something that exists locally (in memory, in a file, or in generated output) and expose it as a public URL.
+Supported content: markdown, HTML, PDFs, images, plain text.
 
----
-
-## What pub IS
-
-- A one-way publisher: artifact → URL
-- Optimized for sharing with humans (Slack, Teams, email)
-- Intended for:
-  - markdown
-  - HTML
-  - PDFs
-  - images
-  - plain text
-- Read-only snapshots
-- Time-limited (free tier)
+All artifacts are **read-only**, **public**, and **expire after 7 days**.
 
 ---
 
-## What pub is NOT
+## What pubthis does NOT do
 
-Do NOT treat pub as:
+- Host applications
+- Run backends or JavaScript
+- Store data permanently
+- Provide collaboration or editing
+- Act as version control
 
-- Application hosting
-- Backend execution
-- A database
-- A collaborative editor
-- Permanent storage
-- Version control
-- A place to run JavaScript logic
-
-If a task requires any of the above, pub is the wrong tool.
+If you need any of those, use something else.
 
 ---
 
-## Invariants (MUST ALWAYS HOLD)
+## When to use it
 
-These rules are non-negotiable:
+Publish when the user says things like:
+- "Share this" / "Give me a link" / "Make this viewable"
+- "Send this to someone" / "Preview this"
 
-1. **Publishing is explicit**
-   - Only publish when the user asks to share, view, or expose output
-   - Or when sharing is clearly implied
+Also default to publishing when:
+- Output is long or formatting matters
+- The audience is non-technical
+- The content will be pasted into Slack or email
 
-2. **Artifacts are immutable**
-   - Once published, you do not modify them
-   - To change content, publish a new artifact
+## When NOT to use it
 
-3. **Links expire**
-   - Default TTL: **7 days**
-   - Hard expiration
-   - Do not claim permanence
-
-4. **Artifacts are public**
-   - Assume anyone with the link can view it
-   - Never publish secrets
-
-5. **Deterministic behavior**
-   - Same input shape → same output shape
-   - No hidden side effects
+- Output is short and conversational
+- User wants collaborative editing
+- User wants permanent hosting
+- Content contains secrets or credentials
+- User explicitly wants a file download
 
 ---
 
-## When You SHOULD Use pub
+## Rules (non-negotiable)
 
-Use pub when the user asks to:
-
-- "Share this"
-- "Give me a link"
-- "Make this viewable"
-- "Let me send this to someone"
-- "Put this somewhere I can open"
-- "Preview this HTML"
-- "Show this report"
-
-Default to pub when:
-- The output is long
-- Formatting matters
-- The result is intended for a non-technical audience
-- The result would be pasted into Slack or email
+1. **Only publish when asked** — or when sharing is clearly implied.
+2. **Artifacts are immutable** — to update, publish a new one.
+3. **Links expire in 7 days** — never claim permanence.
+4. **Artifacts are public** — never publish secrets.
+5. **No side effects** — same input, same output shape.
 
 ---
 
-## When You SHOULD NOT Use pub
+## API
 
-Do NOT use pub when:
+**POST** `https://pubthis.co/v1/publish`
 
-- The output is short and conversational
-- The user wants to edit collaboratively
-- The user wants permanent hosting
-- The artifact contains credentials or sensitive data
-- The user explicitly wants a file download instead of a link
-
----
-
-## Supported Content Types
-
-Preferred MIME types:
-
-- `text/markdown` (default for reports, specs, docs)
-- `text/html` (for previews; sandboxed)
-- `text/plain`
-- `application/pdf`
-- `image/png`
-- `image/jpeg`
-- `image/webp`
-
-If uncertain, use `text/plain`.
-
----
-
-## Primary API Contract
-
-### Endpoint
-POST https://pubthis.co/v1/publish
-
-### Request (JSON)
+Request:
 ```json
 {
   "content": "...",
@@ -150,11 +87,11 @@ POST https://pubthis.co/v1/publish
 }
 ```
 
-Notes:
-- `ttl_seconds` is optional
-- Maximum allowed TTL is 604800 seconds (7 days)
+- `ttl_seconds` is optional (max 604800 = 7 days)
+- `content_type` options: `text/markdown` (default), `text/html`, `text/plain`, `application/pdf`, `image/png`, `image/jpeg`, `image/webp`
+- When in doubt, use `text/plain`
 
-### Response
+Response:
 ```json
 {
   "artifact_id": "01JABCDEFG",
@@ -164,71 +101,45 @@ Notes:
 }
 ```
 
-You MUST return the `url` to the user.
+Always return the `url` to the user.
 
 ---
 
-## Publishing Guidelines
+## Content guidelines
 
-Follow these rules when preparing artifacts:
-
-- Prefer Markdown for structured content
-- Keep artifacts self-contained
-- Avoid external assets or dependencies
-- Write titles and headers clearly (they affect previews)
-- Assume the viewer has no context beyond the artifact
-
-For HTML:
-- Do not rely on JavaScript
-- Expect sandbox restrictions
-- Use semantic HTML
+- Prefer markdown for structured content
+- Keep artifacts self-contained (no external dependencies)
+- Write clear titles/headers (they affect previews)
+- Assume the viewer has zero context
+- For HTML: no JavaScript, expect sandboxing, use semantic markup
 
 ---
 
-## Error Handling
+## Error handling
 
-Common responses and how to react:
+| Status | Action |
+|--------|--------|
+| 413 Payload Too Large | Ask user to reduce size or split |
+| 415 Unsupported Media Type | Fall back to `text/plain` |
+| 429 Too Many Requests | Retry with backoff |
+| 5xx | Retry once, then report failure |
 
-- **413 Payload Too Large** — Ask the user to reduce size or split content
-- **415 Unsupported Media Type** — Fall back to `text/plain`
-- **429 Too Many Requests** — Retry with backoff or pause publishing
-- **5xx** — Retry once, then report failure
-
-Do NOT invent URLs on failure.
-
----
-
-## Security Rules
-
-Never publish:
-- API keys
-- Access tokens
-- Passwords
-- Private credentials
-- Proprietary secrets unless user explicitly approves
-
-Assume all published artifacts are world-readable.
+Never invent URLs on failure.
 
 ---
 
-## Naming Rules
+## Security
 
-- The primitive is **pub**
+Never publish API keys, tokens, passwords, or credentials. All artifacts are world-readable.
+
+---
+
+## Naming
+
+- The tool is **pubthis**
 - The verb is **publish**
-- The domain may be `pubthis.co`
-- Do NOT invent alternate verbs or APIs
+- The domain is `pubthis.co`
 
-Say: "I've published this and here's the link"
+Say: "I've published this — here's the link."
 
-Do NOT say:
-- "I deployed this"
-- "I hosted this permanently"
-- "This is saved forever"
-
----
-
-## One-Sentence Truth (Invariant)
-
-> pub publishes an artifact and returns a temporary, shareable URL.
-
-If any action would violate this sentence, do not use pub.
+Don't say: "deployed", "hosted permanently", or "saved forever."

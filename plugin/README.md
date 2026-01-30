@@ -1,4 +1,4 @@
-# /pub — Claude Code Plugin
+# pubthis — Claude Code Plugin
 
 Publish artifacts directly from Claude Code. Get a temporary, shareable URL.
 
@@ -17,11 +17,13 @@ claude plugin install pubthis
 
 ## Usage
 
-Type `/pub` in Claude Code to publish the last conversation output, or just ask naturally:
+Just ask naturally:
 
 - "Share this report as a link"
 - "Publish this analysis"
 - "Give me a URL for this"
+
+Or type `/pub` to publish the last conversation output.
 
 Claude will publish your content to [pubthis.co](https://pubthis.co) and return a shareable link that expires in 7 days.
 
@@ -38,7 +40,7 @@ Claude will publish your content to [pubthis.co](https://pubthis.co) and return 
 This plugin bundles:
 
 1. **MCP Server** (`@pubthis/mcp-server`) — gives Claude a structured `publish` tool
-2. **Skill** (`/pub`) — user-facing command that orchestrates publishing
+2. **Skill** (`/pub`) — optional slash command that orchestrates publishing
 
 The MCP server calls the [pubthis.co API](https://pubthis.co/v1/publish) to store your content and return a URL.
 
