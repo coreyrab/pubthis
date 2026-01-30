@@ -13,9 +13,9 @@ export function DocsSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-48 shrink-0 pr-8">
-      <nav className="sticky top-8 flex flex-col gap-1">
-        <span className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+    <aside className="mb-6 shrink-0 md:mb-0 md:w-48 md:pr-8">
+      <nav className="flex flex-row flex-wrap gap-1 md:sticky md:top-8 md:flex-col">
+        <span className="mb-1 w-full font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground md:mb-2">
           Documentation
         </span>
         {links.map((link) => (

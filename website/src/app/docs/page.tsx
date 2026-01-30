@@ -62,7 +62,7 @@ export default function DocsQuickstart() {
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Step 1 — Install the plugin
           </p>
-          <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
+          <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-3 font-mono text-xs leading-relaxed sm:p-4 sm:text-sm">
             <code>
               <span className="text-green-400">claude</span>
               <span className="text-white">
@@ -82,8 +82,8 @@ export default function DocsQuickstart() {
             Step 2 — Publish something
           </p>
           <Card className="bg-[#0A0A0A] border-white/10">
-            <CardContent className="pt-4">
-              <div className="space-y-4 font-mono text-sm">
+            <CardContent className="p-3 pt-3 sm:p-6 sm:pt-4">
+              <div className="space-y-4 font-mono text-xs sm:text-sm">
                 <div>
                   <span className="text-white/40">{">"}</span>
                   <span className="text-white">
@@ -143,7 +143,7 @@ export default function DocsQuickstart() {
           You can also call the pub API directly from any HTTP client, script,
           or CI pipeline.
         </p>
-        <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
+        <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-3 font-mono text-xs leading-relaxed sm:p-4 sm:text-sm">
           <code>
             <span className="text-white">
               {"curl -X POST https://pubthis.co/v1/publish \\"}
@@ -196,7 +196,7 @@ export default function DocsQuickstart() {
           file into your project root. Claude Code reads it automatically and
           will use the pub API directly — no plugin or MCP server required.
         </p>
-        <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
+        <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-3 font-mono text-xs leading-relaxed sm:p-4 sm:text-sm">
           <code>
             <span className="text-green-400">curl</span>
             <span className="text-white">
@@ -216,7 +216,7 @@ export default function DocsQuickstart() {
         <p className="font-mono text-sm text-muted-foreground">
           pub is open source. To run your own instance:
         </p>
-        <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
+        <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-3 font-mono text-xs leading-relaxed sm:p-4 sm:text-sm">
           <code>
             <span className="text-green-400">git clone</span>
             <span className="text-white">

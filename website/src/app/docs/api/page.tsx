@@ -126,7 +126,7 @@ export default function DocsApi() {
               </CardContent>
             </Card>
 
-            <pre className="mt-4 overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
+            <pre className="mt-4 overflow-x-auto rounded-lg bg-[#0A0A0A] p-3 font-mono text-xs leading-relaxed sm:p-4 sm:text-sm">
               <code className="text-white/70">
                 {"{\n"}
                 {'  "content": "# Hello\\nWorld",\n'}
@@ -160,7 +160,7 @@ export default function DocsApi() {
               </CardContent>
             </Card>
 
-            <pre className="mt-4 overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
+            <pre className="mt-4 overflow-x-auto rounded-lg bg-[#0A0A0A] p-3 font-mono text-xs leading-relaxed sm:p-4 sm:text-sm">
               <code className="text-white/70">
                 {"{\n"}
                 {'  "artifact_id": "01JABCDEFG",\n'}
