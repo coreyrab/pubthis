@@ -7,7 +7,7 @@ export function Hero() {
         variant="outline"
         className="mb-6 font-mono text-xs border-tomato/30 text-tomato"
       >
-        v0.1.0 — early preview
+        v0.1.0 — beta
       </Badge>
       <h1 className="font-mono text-4xl font-bold tracking-tight sm:text-5xl">
         publish directly
