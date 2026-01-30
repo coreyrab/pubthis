@@ -7,7 +7,7 @@ const BANNER_STYLES = `
   gap:4px;z-index:2147483647;letter-spacing:0.02em;
 `.replace(/\n/g, "");
 
-const BANNER_HTML = `<div style="${BANNER_STYLES}">published with <a href="https://pubit.ai" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;text-underline-offset:2px;">pubit.ai</a></div>`;
+const BANNER_HTML = `<div style="${BANNER_STYLES}">published with <a href="https://pubthis.co" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;text-underline-offset:2px;">/pub</a></div>`;
 
 const BODY_PADDING = `<style>body{padding-bottom:40px}</style>`;
 

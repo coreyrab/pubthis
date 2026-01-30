@@ -106,7 +106,7 @@ export default function DocsQuickstart() {
                   </p>
                   <p className="text-white/70">Here&apos;s your link:</p>
                   <p className="text-green-400 underline underline-offset-2">
-                    https://pubit.ai/a/01JABCDEFG
+                    https://pubthis.co/a/01JABCDEFG
                   </p>
                   <p className="text-white/50 text-xs">
                     Expires in 7 days. Anyone with the link can view it.
@@ -155,7 +155,7 @@ export default function DocsQuickstart() {
         <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
           <code>
             <span className="text-white">
-              {"curl -X POST https://pubit.ai/v1/publish \\"}
+              {"curl -X POST https://pubthis.co/v1/publish \\"}
             </span>
             {"\n"}
             <span className="text-white">{"  -H "}</span>
@@ -202,7 +202,7 @@ export default function DocsQuickstart() {
           <code>
             <span className="text-green-400">git clone</span>
             <span className="text-white">
-              {" https://github.com/coreyrab/pub.git"}
+              {" https://github.com/coreyrab/pubthis.git"}
             </span>
             {"\n"}
             <span className="text-green-400">cd</span>

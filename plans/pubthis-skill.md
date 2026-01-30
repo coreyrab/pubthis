@@ -1,7 +1,7 @@
-# Plan: Create `/pubit` Slash Command Skill
+# Plan: Create `/pubthis` Slash Command Skill
 
 ## Problem
-After brainstorming or generating a report in Claude Code, there's no quick way to publish the output. The user has to manually copy content and `curl` the API. We want a `/pubit` slash command that publishes the last substantial conversation output as a formatted artifact and returns a shareable URL.
+After brainstorming or generating a report in Claude Code, there's no quick way to publish the output. The user has to manually copy content and `curl` the API. We want a `/pubthis` slash command that publishes the last substantial conversation output as a formatted artifact and returns a shareable URL.
 
 ## How Claude Code Skills Work
 - Skills live in `.claude/skills/` (project-level) or `~/.claude/skills/` (global)
@@ -11,7 +11,7 @@ After brainstorming or generating a report in Claude Code, there's no quick way 
 - Skills can include bundled `scripts/`, `references/`, and `assets/` directories
 
 ## Approach
-Create a **project-level** skill at `.claude/skills/pubit/SKILL.md` so it ships with the repo. When the user types `/pubit`, Claude will:
+Create a **project-level** skill at `.claude/skills/pubthis/SKILL.md` so it ships with the repo. When the user types `/pubthis`, Claude will:
 
 1. Look back through the conversation for the last substantial output (report, brainstorm, code explanation, analysis, etc.)
 2. Determine the best `content_type` — almost always `text/markdown` for conversational output
@@ -19,15 +19,15 @@ Create a **project-level** skill at `.claude/skills/pubit/SKILL.md` so it ships 
 4. Return the shareable URL to the user
 
 ### Target URL
-- Default to `https://pubit.ai` (production)
+- Default to `https://pubthis.ai` (production)
 - Respect `PUB_BASE_URL` env var if set (for local dev, e.g. `http://localhost:3000`)
 - The skill instructions will tell Claude to check for a running local server first, falling back to production
 
 ## Changes
 
-### 1. Create `.claude/skills/pubit/SKILL.md`
+### 1. Create `.claude/skills/pubthis/SKILL.md`
 The skill file with:
-- **Frontmatter**: `name: pubit`, `description` explaining it publishes the last conversation artifact
+- **Frontmatter**: `name: pubthis`, `description` explaining it publishes the last conversation artifact
 - **Body**: Step-by-step instructions for Claude to:
   - Identify the last substantial output in the conversation
   - Clean/format it as markdown (strip conversational fluff, keep the content)
@@ -41,7 +41,7 @@ New directory structure in the repo root:
 ```
 .claude/
   skills/
-    pubit/
+    pubthis/
       SKILL.md
 ```
 
@@ -53,10 +53,10 @@ New directory structure in the repo root:
 4. **No bundled scripts** — the skill is simple enough that Claude can handle it with inline `curl` commands; no need for a separate publish script
 
 ## Files to Create
-- `.claude/skills/pubit/SKILL.md` — the skill definition (single file)
+- `.claude/skills/pubthis/SKILL.md` — the skill definition (single file)
 
 ## Verification
-1. Type `/pubit` in Claude Code while in the pub-repo project
+1. Type `/pubthis` in Claude Code while in the pub-repo project
 2. Verify Claude identifies the last substantial output
 3. Verify it publishes via the API and returns a working URL
 4. Open the URL in browser — should render as a styled markdown document

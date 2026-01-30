@@ -6,7 +6,7 @@ export function Footer() {
       <Separator className="mb-8" />
       <div className="flex items-center justify-between font-mono text-xs text-muted-foreground">
         <span>
-          pub<span className="text-tomato">.</span> — the minimal publishing primitive
+          <span className="text-tomato">/</span>pub — the minimal publishing primitive
         </span>
         <div className="flex gap-4">
           <a
@@ -16,7 +16,7 @@ export function Footer() {
             docs
           </a>
           <a
-            href="https://github.com/coreyrab/pub"
+            href="https://github.com/coreyrab/pubthis"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover:text-foreground"

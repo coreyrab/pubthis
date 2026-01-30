@@ -72,7 +72,7 @@ function AgentExample() {
       <span className="text-white/70">{"I've published your report. "}</span>
       <span className="text-white/70">{"Here's the link:"}</span>
       {"\n"}
-      <span className="text-green-400 underline underline-offset-2">{"https://pubit.ai/a/01JABCDEFG"}</span>
+      <span className="text-green-400 underline underline-offset-2">{"https://pubthis.co/a/01JABCDEFG"}</span>
       {"\n\n"}
       <span className="text-white/70">
         {"It will expire in 7 days. Anyone with the link can view it."}
@@ -89,7 +89,7 @@ function ApiExample() {
       </span>
       {"\n"}
       <span className="text-white">
-        {"curl -X POST https://pubit.ai/v1/publish \\"}
+        {"curl -X POST https://pubthis.co/v1/publish \\"}
       </span>
       {"\n"}
       <span className="text-white">{"  -H "}</span>
@@ -120,7 +120,7 @@ function ApiExample() {
       </span>
       {"\n"}
       <span className="text-white/70">{'  "url": "'}</span>
-      <span className="text-green-400">{"https://pubit.ai/a/01JABCDEFG"}</span>
+      <span className="text-green-400">{"https://pubthis.co/a/01JABCDEFG"}</span>
       <span className="text-white/70">{'",'}
       </span>
       {"\n"}

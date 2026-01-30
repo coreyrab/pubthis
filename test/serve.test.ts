@@ -94,7 +94,7 @@ describe("GET /a/:id", () => {
     expect(res.status).toBe(200);
     expect(res.headers.get("Content-Type")).toContain("text/html");
     const body = await res.text();
-    expect(body).toContain("pubit.ai");
+    expect(body).toContain("pubthis.co");
     expect(body).toContain("hi");
   });
 
@@ -113,7 +113,7 @@ describe("GET /a/:id", () => {
     expect(res.status).toBe(200);
     expect(res.headers.get("Content-Type")).toContain("text/html");
     const body = await res.text();
-    expect(body).toContain("pubit.ai");
+    expect(body).toContain("pubthis.co");
     expect(body).toContain("<h1>Hello</h1>");
   });
 

@@ -166,7 +166,7 @@ export default function DocsApi() {
                 {'  "artifact_id": "01JABCDEFG",\n'}
                 {'  "url": "'}
                 <span className="text-green-400">
-                  https://pubit.ai/a/01JABCDEFG
+                  https://pubthis.co/a/01JABCDEFG
                 </span>
                 {'",\n'}
                 {'  "expires_at": "2026-02-05T00:00:00Z",\n'}

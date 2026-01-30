@@ -1,4 +1,4 @@
-# CLAUDE.md — pub (pubit.ai)
+# CLAUDE.md — pub (pubthis.co)
 
 You are Claude Code operating in a project that uses **pub**, a minimal publishing primitive.
 
@@ -126,7 +126,7 @@ If uncertain, use `text/plain`.
 ## Primary API Contract
 
 ### Endpoint
-POST https://pubit.ai/v1/publish
+POST https://pubthis.co/v1/publish
 
 ### Request (JSON)
 ```json
@@ -145,7 +145,7 @@ Notes:
 ```json
 {
   "artifact_id": "01JABCDEFG",
-  "url": "https://pubit.ai/a/01JABCDEFG",
+  "url": "https://pubthis.co/a/01JABCDEFG",
   "expires_at": "2026-02-04T00:00:00Z",
   "content_type": "text/markdown"
 }
@@ -202,7 +202,7 @@ Assume all published artifacts are world-readable.
 
 - The primitive is **pub**
 - The verb is **publish**
-- The domain may be `pubit.ai`
+- The domain may be `pubthis.co`
 - Do NOT invent alternate verbs or APIs
 
 Say: "I've published this and here's the link"

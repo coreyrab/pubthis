@@ -5,7 +5,7 @@ export function Nav() {
     <nav className="border-b border-border">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
         <Link href="/" className="font-mono text-lg font-bold tracking-tight">
-          pub<span className="text-tomato">.</span>
+          <span className="text-tomato">/</span>pub
         </Link>
         <div className="flex items-center gap-6">
           <Link
@@ -15,7 +15,7 @@ export function Nav() {
             docs
           </Link>
           <a
-            href="https://github.com/coreyrab/pub"
+            href="https://github.com/coreyrab/pubthis"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground transition-colors hover:text-foreground"
