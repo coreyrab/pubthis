@@ -10,7 +10,7 @@ export default function DocsQuickstart() {
           Quickstart
         </h1>
         <p className="mt-2 font-mono text-sm text-muted-foreground">
-          Go from zero to a shareable link in under a minute.
+          Install the plugin, publish content, get a link.
         </p>
       </div>
 
