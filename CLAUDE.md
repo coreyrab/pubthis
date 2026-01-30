@@ -6,6 +6,19 @@ Your job is to use pub correctly, predictably, and without inventing new behavio
 
 ---
 
+## Setup
+
+The recommended way to use pub is via the **Claude Code plugin**, which gives you the `/pub` slash command and a structured `publish` MCP tool:
+
+```bash
+claude plugin marketplace add coreyrab/pubthis
+claude plugin install pubthis
+```
+
+If the plugin is installed, use the `publish` MCP tool directly. If not, fall back to the HTTP API documented below.
+
+---
+
 ## Core Primitive
 
 **pub** publishes an artifact and returns a **temporary, shareable URL**.

@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.pubthis.co"),
   title: "/pub — publish Claude Code chats",
   description:
     "Publish chats, markdown files, prototypes, and documents directly from Claude Code. Get a temporary, shareable link for easy sharing.",

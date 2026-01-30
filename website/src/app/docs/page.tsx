@@ -55,28 +55,23 @@ export default function DocsQuickstart() {
           >
             Claude Code
           </a>
-          . Add the pub{" "}
-          <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">
-            CLAUDE.md
-          </code>{" "}
-          to your project and Claude will know how to publish artifacts.
+          . Install the plugin and you&apos;re ready to go.
         </p>
 
         <div className="space-y-2">
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Step 1 — Add CLAUDE.md to your project
+            Step 1 — Install the plugin
           </p>
           <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
             <code>
-              <span className="text-white/50">
-                {"# Download the pub CLAUDE.md into your project"}
+              <span className="text-green-400">claude</span>
+              <span className="text-white">
+                {" plugin marketplace add coreyrab/pubthis"}
               </span>
               {"\n"}
-              <span className="text-green-400">curl</span>
+              <span className="text-green-400">claude</span>
               <span className="text-white">
-                {
-                  " -o CLAUDE.md https://raw.githubusercontent.com/coreyrab/pubthis/main/CLAUDE.md"
-                }
+                {" plugin install pubthis"}
               </span>
             </code>
           </pre>
@@ -84,7 +79,7 @@ export default function DocsQuickstart() {
 
         <div className="space-y-2">
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Step 2 — Ask Claude to publish something
+            Step 2 — Publish something
           </p>
           <Card className="bg-[#0A0A0A] border-white/10">
             <CardContent className="pt-4">
@@ -188,6 +183,33 @@ export default function DocsQuickstart() {
 
       <Separator />
 
+      {/* Alternative: CLAUDE.md */}
+      <section className="space-y-3">
+        <h2 className="font-mono text-lg font-semibold">
+          Alternative: CLAUDE.md (zero-install)
+        </h2>
+        <p className="font-mono text-sm text-muted-foreground">
+          If you prefer not to install a plugin, you can drop a{" "}
+          <code className="rounded bg-secondary px-1.5 py-0.5 text-xs">
+            CLAUDE.md
+          </code>{" "}
+          file into your project root. Claude Code reads it automatically and
+          will use the pub API directly — no plugin or MCP server required.
+        </p>
+        <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-4 font-mono text-sm leading-relaxed">
+          <code>
+            <span className="text-green-400">curl</span>
+            <span className="text-white">
+              {
+                " -o CLAUDE.md https://raw.githubusercontent.com/coreyrab/pubthis/main/CLAUDE.md"
+              }
+            </span>
+          </code>
+        </pre>
+      </section>
+
+      <Separator />
+
       {/* Self-hosting */}
       <section className="space-y-3">
         <h2 className="font-mono text-lg font-semibold">Self-hosting</h2>
@@ -202,7 +224,7 @@ export default function DocsQuickstart() {
             </span>
             {"\n"}
             <span className="text-green-400">cd</span>
-            <span className="text-white"> pub</span>
+            <span className="text-white"> pubthis</span>
             {"\n"}
             <span className="text-green-400">npm install</span>
             {"\n"}
@@ -218,11 +240,11 @@ export default function DocsQuickstart() {
           <code className="rounded bg-secondary px-1.5 py-0.5 text-[10px]">
             PUB_BASE_URL
           </code>{" "}
-          to your domain and update the endpoint in your{" "}
+          to your domain. To point the plugin at your instance, set the{" "}
           <code className="rounded bg-secondary px-1.5 py-0.5 text-[10px]">
-            CLAUDE.md
+            PUBTHIS_API_URL
           </code>{" "}
-          to point to your instance.
+          environment variable in your MCP server config.
         </p>
       </section>
 
