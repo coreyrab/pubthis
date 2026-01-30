@@ -55,12 +55,23 @@ export default function DocsQuickstart() {
           >
             Claude Code
           </a>
-          . Install the plugin and you&apos;re ready to go.
+          . There are two ways to set it up:
         </p>
 
         <div className="space-y-2">
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Step 1 — Install the plugin
+            Option A — Install the plugin
+          </p>
+          <p className="font-mono text-xs text-muted-foreground">
+            The plugin gives you both the{" "}
+            <code className="rounded bg-secondary px-1.5 py-0.5 text-[10px]">
+              publish
+            </code>{" "}
+            MCP tool and the{" "}
+            <code className="rounded bg-secondary px-1.5 py-0.5 text-[10px]">
+              /pub
+            </code>{" "}
+            slash command.
           </p>
           <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-3 font-mono text-xs leading-relaxed sm:p-4 sm:text-sm">
             <code>
@@ -79,7 +90,39 @@ export default function DocsQuickstart() {
 
         <div className="space-y-2">
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Step 2 — Publish something
+            Option B — Add the MCP server directly
+          </p>
+          <p className="font-mono text-xs text-muted-foreground">
+            If you prefer to skip the plugin and add the MCP server yourself:
+          </p>
+          <pre className="overflow-x-auto rounded-lg bg-[#0A0A0A] p-3 font-mono text-xs leading-relaxed sm:p-4 sm:text-sm">
+            <code>
+              <span className="text-green-400">claude</span>
+              <span className="text-white">
+                {" mcp add pubthis -- npx -y @pubthis/mcp-server"}
+              </span>
+            </code>
+          </pre>
+          <p className="font-mono text-xs text-muted-foreground">
+            This gives you the{" "}
+            <code className="rounded bg-secondary px-1.5 py-0.5 text-[10px]">
+              publish
+            </code>{" "}
+            tool but{" "}
+            <span className="text-foreground font-medium">
+              not the{" "}
+              <code className="rounded bg-secondary px-1.5 py-0.5 text-[10px]">
+                /pub
+              </code>{" "}
+              slash command
+            </span>
+            . The slash command is only available through the plugin install.
+          </p>
+        </div>
+
+        <div className="space-y-2">
+          <p className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Then publish something
           </p>
           <Card className="bg-[#0A0A0A] border-white/10">
             <CardContent className="p-3 pt-3 sm:p-6 sm:pt-4">
